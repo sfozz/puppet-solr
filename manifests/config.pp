@@ -13,15 +13,14 @@
 # - Links solr home directory to jetty webapps directory
 #
 class solr::config(
-  $cores = 'UNSET',
-) {
-  include solr::params
+  $cores = $solr::params::cores,
+) inherits solr::params {
 
   $jetty_home     = $::solr::params::jetty_home
   $solr_home      = $::solr::params::solr_home
   $solr_version   = $::solr::params::solr_version
   $file_name      = "solr-${solr_version}.tgz"
-  $download_site  = 'http://www.eng.lsu.edu/mirrors/apache/lucene/solr'
+  $download_site  = 'https://archive.eu.apache.org/dist/lucene/solr'
 
   #Copy the jetty config file
   file { '/etc/default/jetty':
