@@ -5,20 +5,17 @@
 # - Installs default jdk
 # - Installs jetty and extra libs
 #
-class solr::install {
+class solr::install inherits solr::params {
 
   package { 'default-jdk':
-    ensure  => present,
+    ensure => present,
+    name   => $::solr::param::jdk_pkg,
   }
 
   package { 'jetty':
     ensure  => present,
     require => Package['default-jdk'],
-  }
-
-  package { 'libjetty-extra':
-    ensure  => present,
-    require => Package['jetty'],
+    name    => $::solr::param::jetty_pkg,
   }
 
   package { 'wget':
